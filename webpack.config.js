@@ -1,29 +1,43 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
 
 module.exports = {
   entry: "./src/index.js",
+  mode: "development",
   output: {
-    path: path.join(__dirname, "dist"),
-    filename: "index_bundle.js"
+    filename: "./main.js"
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"]
       }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html"
-    }),
-    new BundleAnalyzerPlugin()
-  ]
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 9000,
+    watchContentBase: true,
+    progress: true
+  }
 };
