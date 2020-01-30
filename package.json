@@ -1,31 +1,41 @@
 {
-  "name": "bundle",
+  "name": "scratch",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production",
-    "test": "echo \"Errors: no test specifies\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "main": "webpack.config.js",
   "dependencies": {
     "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "webpack-bundle-analyzer": "^3.6.0"
+    "react-dom": "^16.12.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ]
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "html-webpack-plugin": "^3.2.0",
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
-  }
+  },
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reginPekin/Bundle.git"
+  },
+  "author": "begin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reginPekin/Bundle/issues"
+  },
+  "homepage": "https://github.com/reginPekin/Bundle#readme"
 }
