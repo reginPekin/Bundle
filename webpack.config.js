@@ -3,17 +3,28 @@ const webpack = require("webpack");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: "./src/index.js",
   mode: "development",
   optimization: {
-    minimizer: [new UglifyJsPlugin()]
+    minimizer: [new UglifyJsPlugin()],
+    usedExports: true,
+    runtimeChunk: true,
+    splitChunks: {
+      chunks: "all"
+    }
   },
   output: {
     filename: "./main.js"
   },
   plugins: [
+    new webpack.HashedModuleIdsPlugin({
+      hashFunction: "md4",
+      hashDigest: "base64",
+      hashDigestLength: 4
+    }),
     new BundleAnalyzerPlugin(),
     new webpack.ContextReplacementPlugin(/node_modules\/moment\/locale/, /ru/)
   ],
@@ -27,16 +38,8 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              modules: true
-            }
-          }
-        ]
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
